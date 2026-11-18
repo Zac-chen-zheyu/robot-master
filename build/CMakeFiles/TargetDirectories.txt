@@ -1,0 +1,9 @@
+/home/chen/Visionproject/build/CMakeFiles/mortat_core.dir
+/home/chen/Visionproject/build/CMakeFiles/mortat_aim.dir
+/home/chen/Visionproject/build/CMakeFiles/detect_images.dir
+/home/chen/Visionproject/build/CMakeFiles/vision_aim.dir
+/home/chen/Visionproject/build/CMakeFiles/host_test.dir
+/home/chen/Visionproject/build/CMakeFiles/turret_aim_test.dir
+/home/chen/Visionproject/build/CMakeFiles/test.dir
+/home/chen/Visionproject/build/CMakeFiles/edit_cache.dir
+/home/chen/Visionproject/build/CMakeFiles/rebuild_cache.dir

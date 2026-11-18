@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmortat_core.a CMakeFiles/mortat_core.dir/src/aim_controller.cpp.o CMakeFiles/mortat_core.dir/src/aim_config.cpp.o CMakeFiles/mortat_core.dir/src/serial_link.cpp.o
+/usr/bin/ranlib libmortat_core.a
