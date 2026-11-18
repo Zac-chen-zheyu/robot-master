@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/turret_aim_test.dir/tools/turret_aim_test.cpp.o -o turret_aim_test  libmortat_core.a 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/host_test.dir/tools/host_test.cpp.o -o host_test  libmortat_core.a 
