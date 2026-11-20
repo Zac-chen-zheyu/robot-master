@@ -743,7 +743,7 @@ int main(int argc, char **argv)
                     char b2[256];
                     std::snprintf(b2, sizeof(b2),
                                   "== 状态帧：pos=%.1f° step=%.1f° 发射=%s(%d) %d%% "
-                                  "每圈=%dms 平衡=%d 中位偏移=%dus 有效=%d",
+                                  "每圈=%dms 平衡=%d 中位=%dus 有效=%d",
                                   sc.posDeg(), sc.stepDeg(), stateText(sc.state), sc.state,
                                   sc.progress, sc.ms_per_turn, sc.balance, sc.trim_us,
                                   sc.valid ? 1 : 0);

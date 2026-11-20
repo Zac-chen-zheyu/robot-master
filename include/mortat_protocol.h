@@ -20,9 +20,17 @@ namespace mortat
     constexpr uint8_t kSync0 = 0xAA;
     constexpr uint8_t kSync1 = 0x55;
 
-    constexpr int kMemNone = 0x7FFF;      // 固件里"没记录过记忆位置"的魔数
-    constexpr int kStatusLen = 16;        // 状态帧 LEN
-    constexpr int kStopBaseUs = 1535;     // 固件 S360_STOP_US，与 board_config.h 一致
+    constexpr int kMemNone = 0x7FFF; // 固件里"没记录过记忆位置"的魔数
+    constexpr int kStatusLen = 16;   // 状态帧 LEN
+
+    // 停点（"中位µs"）的允许范围与默认值，对应固件 board_config.h 的
+    // S360_STOP_MIN / S360_STOP_MAX / S360_STOP_US。
+    // v2.5 起这个值是【绝对脉宽】，不再有"基准值 + 偏移"的说法，
+    // 所以这里没有 STOP_BASE_US；上位机/状态帧里拿到的都是绝对 µs。
+    constexpr int kStopMinUs = 1400;
+    constexpr int kStopMaxUs = 1650;
+    constexpr int kStopDefaultUs = 1520;
+
     constexpr int kPosCenterTenths = 900; // 位置中值（90.0°）
 
     enum Cmd : uint8_t
@@ -41,13 +49,13 @@ namespace mortat
         CMD_SET_POS = 0x0D,     // data: u16 绝对位置(0.1°)
         CMD_SET_FIRE_MS = 0x0E, // data: u16 每圈毫秒
         CMD_GET_VERSION = 0x0F,
-        CMD_SET_SPIN_TRIM = 0x10, // data: i16 µs 偏移（CH7）
+        CMD_SET_SPIN_TRIM = 0x10, // data: i16 绝对停点 µs（CH7，v2.5 起不再传偏移）
         CMD_BOOT_INFO = 0x11,
         CMD_SWEEP_CH7 = 0x12,
         CMD_SET_BALANCE = 0x13,   // data: 平衡%
         CMD_SELECT_TARGET = 0x20, // data: 0=180°(CH0) 1=360°步进(CH1)
         CMD_SET_STEP_MS = 0x21,   // data: u16 步进舵机每圈毫秒
-        CMD_SET_STEP_TRIM = 0x22, // data: i16 µs 偏移（CH1）
+        CMD_SET_STEP_TRIM = 0x22, // data: i16 绝对停点 µs（CH1，v2.5 起不再传偏移）
 
         RSP_STATUS = 0x81, // LEN=16
         RSP_ACK = 0x82,    // LEN=3, data: 原命令(1) 结果(1)
@@ -140,8 +148,8 @@ namespace mortat
         int step_tenths = 20; // 步长 2.0°
         int state = 0;        // 0 空闲 1 顺时针 2 换向停顿 3 逆时针 4 完成
         int progress = 0;
-        int trim_us = 0;
-        int ms_per_turn = 1400;
+        int trim_us = kStopDefaultUs; // 中位µs：v2.5 起是绝对脉宽
+        int ms_per_turn = 1200;       // 每圈毫秒（与 v2.5 固件/上位机默认一致）
         int balance = 100;
         bool valid = false;
 

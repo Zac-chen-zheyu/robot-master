@@ -92,10 +92,10 @@ static void testStatus()
     p[7] = 0x00; // step  = 20   (2.0°)
     p[8] = 1;    // state = 顺时针
     p[9] = 33;   // progress
-    p[10] = 0xFB;
-    p[11] = 0xFF; // trim  = -5
-    p[12] = 0x78;
-    p[13] = 0x05; // ms    = 1400
+    p[10] = 0x1D;
+    p[11] = 0x06; // trim  = 1565（v2.5 绝对停点 µs，电控标定值）
+    p[12] = 0xB0;
+    p[13] = 0x04; // ms    = 1200
     p[14] = 100;  // balance
 
     Status s;
@@ -106,8 +106,10 @@ static void testStatus()
     CHECK(s.step_tenths == 20);
     CHECK(s.state == 1);
     CHECK(s.progress == 33);
-    CHECK(s.trim_us == -5);
-    CHECK(s.ms_per_turn == 1400);
+    // v2.5：状态帧回的就是绝对停点 µs，不再做基准换算
+    CHECK(s.trim_us == 1565);
+    CHECK(s.trim_us >= kStopMinUs && s.trim_us <= kStopMaxUs);
+    CHECK(s.ms_per_turn == 1200);
     CHECK(s.balance == 100);
     CHECK(s.firing());
 

@@ -32,7 +32,7 @@ namespace mortat
         bool fire_enabled = false; // 默认不开火，只转向
         int fire_turns = 1;
         int fire_speed = 80;
-        int ms_per_turn = 1400;
+        int ms_per_turn = 1200; // 每圈毫秒（v2.5 固件/上位机默认 1200）
         double fire_cooldown_s = 5.0;
         double fire_delay_s = 0.4; // 对准后再等多久才打
 
